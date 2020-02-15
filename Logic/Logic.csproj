@@ -6,4 +6,12 @@
       <ProjectReference Include="..\Logic.Tests\Logic.Tests.csproj" />
       <ProjectReference Include="..\Models\Models.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="AWSSDK.S3" Version="3.3.110.23" />
+      <PackageReference Include="AWSSDK.SecretsManager" Version="3.3.101.82" />
+      <PackageReference Include="AWSSDK.SQS" Version="3.3.102.64" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Postgres" />
+    </ItemGroup>
 </Project>
