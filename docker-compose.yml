@@ -1,0 +1,53 @@
+version: "2.1"
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack_demo
+    ports:
+      - '4563-4599:4563-4599'
+      - '8055:8080'
+    environment:
+      - SERVICES=s3, sqs, iam, secretsmanager
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - './.localstack:/tmp/localstack'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+  vault:
+      image: vault
+      container_name: vault
+      ports:
+        - "8200:8200"
+      restart: always
+      volumes:
+        - ./volumes/logs:/vault/logs
+        - ./volumes/file:/vault/file
+        - ./volumes/config:/vault/config
+      cap_add:
+        - IPC_LOCK
+      entrypoint: vault server -config=/vault/config/vault.json
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: example
+    ports:
+      - "54320:5432"
+        
+#  flyway:
+#    image: flyway/flyway
+#    command: -url=jdbc:mysql://db -schemas=myschema -user=root -password=P@ssw0rd -connectRetries=60 migrate
+#    volumes:
+#      - .:/flyway/sql
+#    depends_on:
+#      - db
+#    db:
+#      image: mysql
+#      environment:
+#        - MYSQL_ROOT_PASSWORD=P@ssw0rd
+#      command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+#      ports:
+#        - 3306:3306
+        
