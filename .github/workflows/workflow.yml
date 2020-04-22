@@ -16,15 +16,15 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release
       - name: Zip Folder
-        run: zip -r Archive.zip ./API/bin/Release/netcoreapp3.1
+        run: zip -r Build.zip ./API/bin/Release/netcoreapp3.1
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: Localstack v1.0.0
+          release_name: Release v1.0.0
           draft: false
           prerelease: false
       - name: Upload Release Asset
@@ -34,6 +34,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./Archive.zip
-          asset_name: Archive.zip
+          asset_path: ./Build.zip
+          asset_name: Build.zip
           asset_content_type: application/zip
