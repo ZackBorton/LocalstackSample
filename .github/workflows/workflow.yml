@@ -14,8 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Build project
-        run: dotnet build |
-          zip --junk-paths ${{ github.ref }}.zip README.md
+        run: dotnet build --configuration Release
+      - name: Zip Folder
+        run: zip -r ${{ github.ref }}.zip ./API/bin/Release/netcoreapp3.1
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
