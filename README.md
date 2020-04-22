@@ -1,5 +1,5 @@
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
-
+![Release Artifacts](https://github.com/ZackBorton/LocalstackSample/workflows/Release%20Artifacts/badge.svg)
 # Practice for AWS developer certificate
 * https://aws.amazon.com/certification/certified-developer-associate/
 * Uses localstack to get more familiar with the AWS SDK
